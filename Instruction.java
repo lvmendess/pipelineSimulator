@@ -8,6 +8,7 @@ public abstract class Instruction {
     protected String stage;
     protected int stageId;
     protected String ogInst;
+    protected String[] stages;
 
     public Instruction(String op, String rs, String ogInst) {
         this.op = op;
@@ -16,9 +17,15 @@ public abstract class Instruction {
         this.stage = "B"; 
         stageId = 0;
         this.ogInst = ogInst;
+        stages = new String[]{"B", "D", "EX", "M", "EC"};
     }
 
     public void orderRegs(){}
+
+    public void nextStage(){
+        stageId++;
+        stage = stages[stageId];
+    }
 
     public String getOp() {
         return op;

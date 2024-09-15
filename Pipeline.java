@@ -38,10 +38,10 @@ public class Pipeline{
         if(pipelineSimulator.isEmpty()){
             pipelineSimulator.add(i);
         }else{
-            //if(!(pipelineSimulator.size()<5)){
+            /*if(!(pipelineSimulator.size()<5)){
                 pipelineFinal.add(pipelineSimulator.getLast().getOgInst());
-                //pipelineSimulator.removeLast();
-            //}
+                pipelineSimulator.removeLast();
+            }*/
             pipelineSimulator.add(0, i);
             isHazard();
             advance();
@@ -50,12 +50,8 @@ public class Pipeline{
     }
 
     public void advance(){
-        for(int j = 0; j<pipelineSimulator.size(); j++){
-            if((j+1)<5){
-                pipelineSimulator.get(j).setStage(stages[j+1], j+1);
-            }else{
-                pipelineSimulator.get(j).setStage(pipelineSimulator.get(j).getStage(), pipelineSimulator.get(j).getStageId());
-            }
+        for (Instruction i : pipelineSimulator) {
+            i.nextStage();
         }
     }
 
