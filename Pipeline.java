@@ -29,19 +29,19 @@ public class Pipeline{
         for(String[] inst : insts){
             put(dick.search(inst));
         }
-        /*for (int i = 0; i < 5; i++) {
+        for (int i = 0; i < 5; i++) {
             put(new Bolha("NOP", null, "NOP"));
-        }*/
+        }
     }
 
     public void put(Instruction i){
         if(pipelineSimulator.isEmpty()){
             pipelineSimulator.add(i);
         }else{
-            /*if(!(pipelineSimulator.size()<5)){
+            if(pipelineSimulator.size()>5){
                 pipelineFinal.add(pipelineSimulator.getLast().getOgInst());
                 pipelineSimulator.removeLast();
-            }*/
+            }
             pipelineSimulator.add(0, i);
             isHazard();
             advance();
@@ -50,8 +50,10 @@ public class Pipeline{
     }
 
     public void advance(){
-        for (Instruction i : pipelineSimulator) {
-            i.nextStage();
+        for(int j = 0; j<pipelineSimulator.size(); j++){
+            if((j+1)<5){
+                pipelineSimulator.get(j).setStage(stages[j+1], j+1);
+            }
         }
     }
 
