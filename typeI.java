@@ -1,8 +1,8 @@
 public class typeI extends Instruction{
     private String rt;
 
-    public typeI(String op, String rs, String rt) {
-        super(op, rs);
+    public typeI(String op, String rs, String rt, String ogInst) {
+        super(op, rs, ogInst);
         this.rt = rt;
         regs = new String[]{rs, rt};
         orderRegs();

@@ -2,46 +2,60 @@ import java.util.ArrayList;
 public class Pipeline{
     //simular estágios de pipeline
     ArrayList<Instruction> pipelineSimulator;
+    ArrayList<String> pipelineFinal;
     String[] stages;
     Dicionario dick;
     HazardDetector hd;
-    boolean parse;
 
     public Pipeline(){
         pipelineSimulator = new ArrayList<Instruction>();
+        pipelineFinal = new ArrayList<String>();
         stages = new String[]{"B", "D", "EX", "M", "EC"}; //busca, decodificação, execução, memória, escrita
         dick = new Dicionario();
         hd = new HazardDetector();
+    }
+
+    public ArrayList<String> getPipelineFinal() {
+        return pipelineFinal;
+    }
+
+    public void printInstructions(){
+        for (String string : pipelineFinal) {
+            System.out.println(string);
+        }
     }
 
     public void createInstructions(ArrayList<String[]> insts){
         for(String[] inst : insts){
             put(dick.search(inst));
         }
+        /*for (int i = 0; i < 5; i++) {
+            put(new Bolha("NOP", null, "NOP"));
+        }*/
     }
 
     public void put(Instruction i){
         if(pipelineSimulator.isEmpty()){
             pipelineSimulator.add(i);
-            print();
-            System.out.println();
         }else{
-            advance();
+            //if(!(pipelineSimulator.size()<5)){
+                pipelineFinal.add(pipelineSimulator.getLast().getOgInst());
+                //pipelineSimulator.removeLast();
+            //}
             pipelineSimulator.add(0, i);
-            print();
             isHazard();
+            advance();
+            print();
         }
     }
 
     public void advance(){
-        if(pipelineSimulator.size()<5){
-            for(int j = 0; j<pipelineSimulator.size(); j++){
-                if((j+1)<5){
-                    pipelineSimulator.get(j).setStage(stages[j+1], j+1);
-                }
+        for(int j = 0; j<pipelineSimulator.size(); j++){
+            if((j+1)<5){
+                pipelineSimulator.get(j).setStage(stages[j+1], j+1);
+            }else{
+                pipelineSimulator.get(j).setStage(pipelineSimulator.get(j).getStage(), pipelineSimulator.get(j).getStageId());
             }
-        }else{
-            pipelineSimulator.removeLast();
         }
     }
 
@@ -50,6 +64,17 @@ public class Pipeline{
             System.out.println(pipelineSimulator.get(i).getOp());
         }
         System.out.println();
+    }
+
+    public boolean isEmpty(){
+        boolean isEmpty = true;
+        for (Instruction instruction : pipelineSimulator) {
+            if (!(instruction instanceof Bolha)) {
+                isEmpty = false;
+                break;
+            }
+        }
+        return isEmpty;
     }
 
     public boolean isHazard(){
@@ -76,7 +101,7 @@ public class Pipeline{
     }
 
     public boolean running(){
-        if(!pipelineSimulator.isEmpty()){
+        if(!isEmpty()){
             return true;
         }else{
             return false;
@@ -86,9 +111,9 @@ public class Pipeline{
     public void solveHazard(int ind1, int ind2, int m){
         switch (m) {
             case 1://bolha
-                Instruction b1 = new Bolha("NOP", null);
+                Instruction b1 = new Bolha("NOP", null, "NOP");
                 pipelineSimulator.add(ind1, b1);
-                Instruction b2 = new Bolha("NOP", null);
+                Instruction b2 = new Bolha("NOP", null, "NOP");
                 pipelineSimulator.add(ind1, b2);
                 break;
 

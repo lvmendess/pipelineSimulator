@@ -1,10 +1,11 @@
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
-//import java.util.Arrays;
+import java.util.Arrays;
 
 public class Main {
-    public static void main(String[] args) throws FileNotFoundException{
+    public static void main(String[] args) throws FileNotFoundException, IOException{
         /*File diretorio = new File("testes\\");
         File[] arquivos = diretorio.listFiles();
         LeitorTxt leitorTxt;
@@ -39,14 +40,14 @@ public class Main {
             while ((linhaFatiada = leitorTxt.proximaLinha()) != null) {
                 instrucoes.add(linhaFatiada);
             }
-            /*for(int i=0; i<instrucoes.size(); i++){
+            for(int i=0; i<instrucoes.size(); i++){
                 System.out.println(Arrays.toString(instrucoes.get(i)));
-            }*/
+            }
             p = new Pipeline();
             p.createInstructions(instrucoes);
-            //p.print();
-        } catch (Exception e) {
+            p.printInstructions();
+        }catch (Exception e) {
             e.printStackTrace();
-        }
+        } 
     }
 }

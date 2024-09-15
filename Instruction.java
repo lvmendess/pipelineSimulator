@@ -7,13 +7,15 @@ public abstract class Instruction {
     protected ArrayList<String[]> regByStage;
     protected String stage;
     protected int stageId;
+    protected String ogInst;
 
-    public Instruction(String op, String rs) {
+    public Instruction(String op, String rs, String ogInst) {
         this.op = op;
         this.rs = rs;
         regByStage = new ArrayList<String[]>();
         this.stage = "B"; 
         stageId = 0;
+        this.ogInst = ogInst;
     }
 
     public void orderRegs(){}
@@ -82,6 +84,13 @@ public abstract class Instruction {
     public void setStageId(int stageId) {
         this.stageId = stageId;
     }
-    
+
+    public String getOgInst() {
+        return ogInst;
+    }
+
+    public void setOgInst(String ogInst) {
+        this.ogInst = ogInst;
+    }
     
 }
