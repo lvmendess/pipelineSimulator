@@ -22,6 +22,10 @@ public abstract class Instruction {
 
     public void orderRegs(){}
 
+    public boolean isReadyAtEX() {
+        return readyAtEX;
+    }
+
     public String getOp() {
         return op;
     }

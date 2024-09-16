@@ -13,10 +13,11 @@ public class Main {
         ArrayList<String[]> instrucoes = new ArrayList<>();
         Pipeline p;
     
-        int cont = 1;
+        //int cont = 1;
 
         for (File arquivo : arquivos) {
-            System.out.println("ARQUIVO" + cont);
+            String name = arquivo.getName();
+            System.out.println(arquivo.getName());
             leitorTxt = new LeitorTxt(arquivo.getAbsolutePath());
             String[] linhaFatiada = null;
             while ((linhaFatiada = leitorTxt.proximaLinha()) != null) {
@@ -24,16 +25,27 @@ public class Main {
                 // popular ArrayList "instrucoes"
             }
             try {
-                p = new Pipeline();
+                int method = 0;
+                if(name.equals("TESTE-01.txt")||name.equals("TESTE-02.txt")){
+                    method = 1;
+                }else if(name.equals("TESTE-03.txt")||name.equals("TESTE-04.txt")){
+                    method = 2;
+                }else if(name.equals("TESTE-05.txt")||name.equals("TESTE-06.txt")||name.equals("TESTE-07.txt")){
+                    method = 1;
+                }else if(name.equals("TESTE-08.txt")||name.equals("TESTE-09.txt")||name.equals("TESTE-10.txt")){
+                    method = 2;
+                }else{
+                    throw new Exception("Unexpected File Name");
+                }
+                p = new Pipeline(method);
                 p.createInstructions(instrucoes);
-                //p.printInstructions();
-                escritor.write(p.getPipelineFinal(), cont);
-                //p.print();
+                escritor.write(p.getPipelineFinal(), arquivo.getName());
             }catch(NullPointerException e){
                 System.out.println(-1);
+            }catch (Exception e) {
+                System.out.println("o nome do arquivo de teste nao ta igual oq vc falou q seria, novy");
             }
             instrucoes.clear();
-            cont++;
         }
         /*LeitorTxt leitorTxt = new LeitorTxt("testes\\TESTE-01.txt");
         ArrayList<String[]> instrucoes = new ArrayList<>();

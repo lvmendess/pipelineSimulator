@@ -4,16 +4,10 @@ import java.io.FileWriter;
 import java.io.File;
 
 public class EscritorTxt {
-    public void write(ArrayList<String> result, int n){
+    public void write(ArrayList<String> result, String filename/*int n*/){
         try {
-            String num = null;
-            if(n<10){
-                num = "0" + n;
-            }else{
-                num = String.format("%d", n);
-            }
-            
-            File file = new File("testes\\TESTE-" + num + "-RESULTADO.txt");
+            filename = filename.replace(".txt", "");
+            File file = new File("testes\\" + filename + "-RESULTADO.txt");
             
             BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(file));
             StringBuilder str = new StringBuilder();
