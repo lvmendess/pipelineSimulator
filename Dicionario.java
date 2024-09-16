@@ -17,13 +17,13 @@ public class Dicionario {
         ||inst[0].equals("sra")||inst[0].equals("srav")||inst[0].equals("sllv")
         ||inst[0].equals("srlv")){
 
-            i = new typeR(inst[0], inst[1], inst[2], inst[3], inst[4]);
+            i = new typeR(inst[0], inst[1], inst[2], inst[3], inst[4], true);
         }
         else if(inst[0].equals("addi")||inst[0].equals("addiu")||inst[0].equals("slti")
         ||inst[0].equals("sltiu")||inst[0].equals("andi")||inst[0].equals("ori")
         ||inst[0].equals("xori")||inst[0].equals("lui")){
 
-            i = new typeI(inst[0], inst[1], inst[2], inst[4]);
+            i = new typeI(inst[0], inst[1], inst[2], inst[4], true);
 
         }else if(inst[0].equals("sb")||inst[0].equals("sh")||inst[0].equals("swl")||
         inst[0].equals("sw")||inst[0].equals("swr")){

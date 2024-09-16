@@ -8,14 +8,16 @@ public abstract class Instruction {
     protected String stage;
     protected int stageId;
     protected String ogInst;
+    protected boolean readyAtEX;
 
-    public Instruction(String op, String rs, String ogInst) {
+    public Instruction(String op, String rs, String ogInst, boolean ready) {
         this.op = op;
         this.rs = rs;
         regByStage = new ArrayList<String[]>();
         this.stage = "B"; 
         stageId = 0;
         this.ogInst = ogInst;
+        this.readyAtEX = ready;
     }
 
     public void orderRegs(){}
