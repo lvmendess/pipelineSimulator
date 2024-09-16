@@ -1,0 +1,7 @@
+lw $t0, 1200($t1)
+NOP
+NOP
+add $t0, $s2, $t0
+NOP
+NOP
+sw $t0, 1200($t1)

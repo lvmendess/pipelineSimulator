@@ -6,6 +6,7 @@ public class Pipeline{
     String[] stages;
     Dicionario dick;
     HazardDetector hd;
+    int max;
 
     public Pipeline(){
         pipelineSimulator = new ArrayList<Instruction>();
@@ -13,6 +14,7 @@ public class Pipeline{
         stages = new String[]{"B", "D", "EX", "M", "EC"}; //busca, decodificação, execução, memória, escrita
         dick = new Dicionario();
         hd = new HazardDetector();
+        max = 5;
     }
 
     public ArrayList<String> getPipelineFinal() {
@@ -29,7 +31,8 @@ public class Pipeline{
         for(String[] inst : insts){
             put(dick.search(inst));
         }
-        for (int i = 0; i < 5; i++) {
+        for (int i = 0; i < pipelineSimulator.size(); i++) {
+            System.out.println("inseriu mais um");
             put(new Bolha("NOP", null, "NOP"));
         }
     }
@@ -38,7 +41,7 @@ public class Pipeline{
         if(pipelineSimulator.isEmpty()){
             pipelineSimulator.add(i);
         }else{
-            if(pipelineSimulator.size()>5){
+            if(pipelineSimulator.size()>max){
                 pipelineFinal.add(pipelineSimulator.getLast().getOgInst());
                 pipelineSimulator.removeLast();
             }
@@ -84,7 +87,7 @@ public class Pipeline{
                 i1 = pipelineSimulator.get(i);
                 i2 = pipelineSimulator.get(i-1);
                 if(i1.getOp()!="NOP" && i2.getOp()!="NOP"){
-                    r = hd.rawDetector(i1, i2);
+                    r = hd.bubbleDetector(i1, i2);
                 }
                 if(r){
                     solveHazard(i, i-1, 1);
@@ -120,7 +123,7 @@ public class Pipeline{
                 break;
 
             case 3: //TODO: reordenamento
-        
+
             default:
                 break;
         }
