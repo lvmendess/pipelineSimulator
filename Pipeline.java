@@ -41,7 +41,9 @@ public class Pipeline{
 
     public void createInstructions(ArrayList<String[]> insts){
         for(String[] inst : insts){
-            put(dick.search(inst));
+            if(!inst[0].equals("NOP")){
+                put(dick.search(inst));
+            }
         }
         for (int i = 0; i < pipelineSimulator.size(); i++) {
             System.out.println("inseriu mais um");
