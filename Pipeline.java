@@ -29,6 +29,16 @@ public class Pipeline{
         }
     }
 
+    public void insertInstructions(ArrayList<Instruction> instructions){
+        for(Instruction inst : instructions){
+            put(inst);
+        }
+        for (int i = 0; i < pipelineSimulator.size(); i++) {
+            System.out.println("inseriu mais um");
+            put(new Bolha());
+        }
+    }
+
     public void createInstructions(ArrayList<String[]> insts){
         for(String[] inst : insts){
             put(dick.search(inst));
@@ -96,7 +106,6 @@ public class Pipeline{
                             if(r){
                                 solveHazard(i, i-1, 1);
                                 print();
-                                //return r;
                             }
                             break;
                         case 2: //bypass
@@ -105,33 +114,17 @@ public class Pipeline{
                             if(s==0){
                                 solveHazard(i, i-1, 2);
                                 print();
-                                //return r;
                             }else if (s == 1){
                                 solveHazard(i, i-1, 3);
                                 print();
                             }
                             break;
-                        case 3: //reordenamento
-                            
-                            break;
 
-                        case 4: //all-in
-                            r = hd.bubbleDetector(i1, i2);
+                        case 3: //all-in
+                            r = hd.bypassAndBubbleDetector(i1, i2);
                             if(r){
                                 solveHazard(i, i-1, 1);
                                 print();
-                                //return r;
-                            }
-                            int t = hd.bypassDetector(i1, i2);
-                            if(t==0){
-                                solveHazard(i, i-1, 2);
-                                print();
-                                //return r;
-                            }else if (t == 1){
-                                solveHazard(i, i-1, 3);
-                                print();
-                            }else{
-                                
                             }
                             break;
                         default:
@@ -174,10 +167,6 @@ public class Pipeline{
             case 3: //TODO: adiantamento c/ bolha
                 Instruction b3 = new Bolha();
                 pipelineSimulator.add(ind1, b3);
-                break;
-
-            case 4: //TODO: reordenamento
-
                 break;
             
             default:

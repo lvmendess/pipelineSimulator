@@ -39,6 +39,16 @@ public class HazardDetector {
         return isHazard;
     }
 
+    public boolean bypassAndBubbleDetector(Instruction i1, Instruction i2) {
+        boolean isHazard = false;
+        if (bypassDetector(i1, i2) == -1) {
+            isHazard = bubbleDetector(i1, i2);
+        } else {
+            isHazard = true;
+        }
+        return isHazard;
+    }
+
     /*
     método reorderDetector(): procurar por hazard -> 
     */

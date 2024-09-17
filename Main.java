@@ -12,6 +12,7 @@ public class Main {
         EscritorTxt escritor = new EscritorTxt();
         ArrayList<String[]> instrucoes = new ArrayList<>();
         Pipeline p;
+        Scheduler s;
     
         //int cont = 1;
 
@@ -28,18 +29,27 @@ public class Main {
                 int method = 0;
                 if(name.equals("TESTE-01.txt")||name.equals("TESTE-02.txt")){
                     method = 1;
+                    p = new Pipeline(method);
+                    p.createInstructions(instrucoes);
                 }else if(name.equals("TESTE-03.txt")||name.equals("TESTE-04.txt")){
                     method = 2;
+                    p = new Pipeline(method);
+                    p.createInstructions(instrucoes);
                 }else if(name.equals("TESTE-05.txt")||name.equals("TESTE-06.txt")||name.equals("TESTE-07.txt")){
                     method = 1;
+                    s = new Scheduler(instrucoes);
+                    p = new Pipeline(method);
+                    p.insertInstructions(s.getAllInstructions());
                 }else if(name.equals("TESTE-08.txt")||name.equals("TESTE-09.txt")||name.equals("TESTE-10.txt")){
-                    method = 2;
+                    method = 3;
+                    s = new Scheduler(instrucoes);
+                    p = new Pipeline(method);
+                    p.insertInstructions(s.getAllInstructions());
                 }else{
                     throw new Exception("Unexpected File Name");
                 }
-                p = new Pipeline(method);
-                p.createInstructions(instrucoes);
                 escritor.write(p.getPipelineFinal(), arquivo.getName());
+                
             }catch(NullPointerException e){
                 System.out.println(-1);
             }catch (Exception e) {
@@ -47,22 +57,5 @@ public class Main {
             }
             instrucoes.clear();
         }
-        /*LeitorTxt leitorTxt = new LeitorTxt("testes\\TESTE-01.txt");
-        ArrayList<String[]> instrucoes = new ArrayList<>();
-        Pipeline p;
-        try {
-            String[] linhaFatiada = null;
-            while ((linhaFatiada = leitorTxt.proximaLinha()) != null) {
-                instrucoes.add(linhaFatiada);
-            }
-            for(int i=0; i<instrucoes.size(); i++){
-                System.out.println(Arrays.toString(instrucoes.get(i)));
-            }
-            p = new Pipeline();
-            p.createInstructions(instrucoes);
-            p.printInstructions();
-        }catch (Exception e) {
-            e.printStackTrace();
-        }*/
     }
 }
