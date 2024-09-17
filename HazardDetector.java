@@ -39,12 +39,18 @@ public class HazardDetector {
         return isHazard;
     }
 
-    public boolean bypassAndBubbleDetector(Instruction i1, Instruction i2) {
-        boolean isHazard = false;
-        if (bypassDetector(i1, i2) == -1) {
-            isHazard = bubbleDetector(i1, i2);
-        } else {
-            isHazard = true;
+    public int bypassAndBubbleDetector(Instruction i1, Instruction i2) {
+        int isHazard = 0; // não pode nem bolha nem bypass (deixa inalterado)
+        if (bypassDetector(i1, i2) == -1) { // se não pode bypass
+            if (bubbleDetector(i1, i2)) { // verif. se pode bolha
+                isHazard = -1; // retorna -1 se pode bolha
+            }
+        } else { 
+            if (bypassDetector(i1, i2) == 0) {
+                isHazard = 0; // retorna 0 se pode bypass sem bolha (deixa inalterado)
+            } else { // esse só pode ser 1
+                isHazard = 1; // bypass com 1 bolha
+            }
         }
         return isHazard;
     }

@@ -41,7 +41,9 @@ public class Pipeline{
 
     public void createInstructions(ArrayList<String[]> insts){
         for(String[] inst : insts){
-            put(dick.search(inst));
+            if(!inst[0].equals("NOP")){
+                put(dick.search(inst));
+            }
         }
         for (int i = 0; i < pipelineSimulator.size(); i++) {
             System.out.println("inseriu mais um");
@@ -121,9 +123,17 @@ public class Pipeline{
                             break;
 
                         case 3: //all-in
-                            r = hd.bypassAndBubbleDetector(i1, i2);
+                            int caso = 2; // caso que não faz nada
+                            if (hd.bypassAndBubbleDetector(i1, i2) != 0) { // 1 ou -1
+                                r = true;
+                            }
+                            if (hd.bypassAndBubbleDetector(i1, i2) == 1) {
+                                caso = 3;
+                            } else if (hd.bypassAndBubbleDetector(i1, i2) == -1) {
+                                caso = 1;
+                            }
                             if(r){
-                                solveHazard(i, i-1, 1);
+                                solveHazard(i, i-1, caso);
                                 print();
                             }
                             break;
