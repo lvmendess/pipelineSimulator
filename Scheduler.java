@@ -24,7 +24,9 @@ public class Scheduler {
 
     public void createInstructions(ArrayList<String[]> instructions){
         for(String[] inst : instructions){
-            allInstructions.add(dick.search(inst));
+            if(!inst[0].equals("NOP")){
+                allInstructions.add(dick.search(inst));
+            }
         }
     }
 
