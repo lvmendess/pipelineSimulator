@@ -138,7 +138,7 @@ public class Pipeline{
                             }
                             break;
                         default:
-                            System.out.println("novy nao precisa de entrada p nenhum show pq ele ja tem 2 por default");
+                            System.out.println("oi novy :)");
                             break;
                     }
                     // method = 1 -> r = bubble()
